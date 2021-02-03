@@ -17,12 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from mysite.views import ProductLV
+from mysite.views import HomeLV
 from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', ProductLV.as_view(), name='home'),
+    path('', HomeLV.as_view(), name='home'),
     path('product/', include('product.urls')),
     path('search', views.search, name='search'),
 ]

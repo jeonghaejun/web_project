@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from product.models import *
-from django.views.generic import ListView, DetailView
-
+from django.views.generic import ListView
+from django.db.models import Q
 # Create your views here.
 
 # def product(request):
@@ -10,9 +10,9 @@ from django.views.generic import ListView, DetailView
 #     return render(request, 'product/product.html', context)
 
 # ListView
-class ProductLV(ListView):
+class HomeLV(ListView):
     model = Product
-    template_name = 'product/product.html' # 템플릿 파일명 변경 / 디폴트는 post_list
+    template_name = 'home.html' # 템플릿 파일명 변경 / 디폴트는 post_list
     context_object_name = 'products' # 컨텍스트 객체 이름 변경 / 디폴트는 object_list
     paginate_by = 3 # 페이지네이션, 페이지 당 문서 건 수
 
@@ -36,19 +36,15 @@ class ProductLV(ListView):
 
         return context
 
-# DetailView
-class ProductDV(DetailView):
-    model = Product
-    context_object_name = 'product'
-
+# Search
 def search(request):
-    products = Product.objects.all().order_by('-id')
+    products2 = Product.objects.all().order_by('-id')
 
     q = request.POST.get('q', "") 
 
     if q:
-        products = products.filter(name__icontains=q)
-        return render(request, 'search.html', {'products' : products, 'q' : q})
+        products2 = products2.filter(Q(name__icontains=q) | Q(content__icontains=q))
+        return render(request, 'search.html', {'products2' : products2, 'q' : q})
     
     else:
         return render(request, 'search.html')

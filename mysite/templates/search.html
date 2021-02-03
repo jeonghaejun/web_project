@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    {% if not products %}
+    {% if not products2 %}
 
         <h1>해당 상품이 존재하지 않습니다.</h1>
 
@@ -13,7 +13,7 @@
     
     <div class="row">
 
-    {% for product in products.all %}
+    {% for product in products2.all %}
     <div class="col-xl-4 col-lg-6 col-md-12">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
@@ -35,6 +35,4 @@
     {% endfor %}
     {% endif %}
     <br><br>
-
-    {% include 'pagination.html' %}
 {% endblock %}
