@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}product_detail.html{% endblock %}
+
+{% block content %}
+
+
+<p>제품명 : {{ product.name }}</p>
+<p>cpu : {{ product.cpu }}</p>
+<p>가격 : {{ product.price }}</p>
+<img src="{{ product.imageURL }}">
+
+<br>
+
+{% endblock %}
