@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class Product(models.Model):
     name = models.CharField('NAME', max_length=50)
     cpu = models.CharField('CPU', max_length=50)
@@ -17,7 +16,7 @@ class Product(models.Model):
     price = models.IntegerField('PRICE')
     image = models.ImageField('IMAGE', blank=True)
     content = models.TextField('CONTENT')
-    
+
     def __str__(self):
         return self.name
 
@@ -27,5 +26,11 @@ class Product(models.Model):
             url = self.image.url
         except:
             url = ''
-
+        
         return url
+
+class Maker_list(models.Model):
+    maker_list = models.CharField(verbose_name='MAKER_LIST', max_length=50)
+
+    def __str__(self):
+        return self.maker_list

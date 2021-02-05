@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- Breadcrumb End -->
+<div class="breadcrumb-option set-bg" data-setbg="{% static 'img/breadcrumb-bg.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Car Listing</h2>
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <span>About</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Begin -->
+
+<!-- Car Section Begin -->
+<section class="car spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="car__sidebar">
+                    <!-- 검색 -->
+                    <div class="car__search">
+                        <h5>Search</h5>
+                        <form action="{% url 'product:search' %}" method="post">{% csrf_token %}
+                            <input type="text" placeholder="Search..." name="q" value="{{q}}">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                        
+                    <!-- 체크박스 -->
+                    <h5>Maker</h5><br>
+                    <form action="{% url 'product:search' %}" method="post">{% csrf_token %}
+                        {% for maker in maker_list %}
+                            <div class="form-check form-check">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="f", value={{maker}}>
+                                <class class="form-check-label" for="inlineCheckbox5" style="color: #CDCDCD">{{maker}}</class>
+                                <br>
+                            </div>
+                        {% endfor %}
+                        <br>
+                        <div class="car__filter__btn">
+                            <button type="submit" class="site-btn">검색</button>
+                        </div>
+                    </form>
+
+                    <br><br>
+
+                    <!-- 필터 -->
+                    <div class="car__filter">
+                        <h5>Filter</h5>
+                        <form action="{% url 'product:search' %}" method="post">
+                            <select>
+                                <option data-display="CPU">CPU</option>
+                                <option value="">i7</option>
+                                <option value="">i5 </option>
+                                <option value="">i3</option>
+                                <option value="">라이젠</option>
+                            </select>
+                            <select>
+                                <option data-display="RAM">RAM</option>
+                                <option value="">RAM</option>
+                                <option value="">8GB</option>
+                                <option value="">16GB</option>
+                                <option value="">32GB</option>
+                            </select>
+                            <select>
+                                <option value="">Hand</option>
+                                <option value="">First Hand</option>
+                                <option value="">Second Hand</option>
+                            </select>
+                            <select>
+                                <option value="">Transmisson</option>
+                                <option value="">Bluetooth</option>
+                                <option value="">WiFi</option>
+                            </select>
+                            <select>
+                                <option value="">Mileage</option>
+                                <option value="">27</option>
+                                <option value="">20</option>
+                                <option value="">15</option>
+                                <option value="">10</option>
+                            </select>
+                            <select>
+                                <option value="">Engine</option>
+                                <option value="">BS3</option>
+                                <option value="">BS4</option>
+                                <option value="">BS5</option>
+                                <option value="">BS6</option>
+                            </select>
+                            <select>
+                                <option value="">Colors</option>
+                                <option value="">Red</option>
+                                <option value="">Blue</option>
+                                <option value="">Black</option>
+                                <option value="">Yellow</option>
+                            </select>
+                            <div class="filter-price">
+                                <p>Price:</p>
+                                <div class="price-range-wrap">
+                                    <div class="filter-price-range"></div>
+                                    <div class="range-slider">
+                                        <div class="price-input">
+                                            <input type="text" id="filterAmount">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="car__filter__btn">
+                                <button type="submit" class="site-btn">Reset FIlter</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="car__filter__option">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="car__filter__option__item">
+                                <h6>Show On Page</h6>
+                                <select>
+                                    <option value="">9 Car</option>
+                                    <option value="">15 Car</option>
+                                    <option value="">20 Car</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="car__filter__option__item car__filter__option__item--right">
+                                <h6>Sort By</h6>
+                                <select>
+                                    <option value="">Price: Highest Fist</option>
+                                    <option value="">Price: Lowest Fist</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% block list%}
+                <!-- 노트북 리스트 -->
+                <div class="row">
+                    {% for product in products %}
+                    <div class="col-lg-4 col-md-4">
+                        <div class="car__item">
+                            <div class="car__item__pic__slider owl-carousel">
+                                <img src="{{ product.imageURL }}" alt="">
+                                <img src="{{ product.imageURL }}" alt="">
+                                <img src="{{ product.imageURL }}" alt="">
+                                <img src="{{ product.imageURL }}" alt="">
+                            </div>
+                            <div class="car__item__text">
+                                <div class="car__item__text__inner">
+                                    <div class="label-date">{{ product.name }}</div>
+                                    <h5>{{ product.content }}</h5>
+                                    <ul>
+                                        <li><span>{{ product.cpu }}</span></li>
+                                        <li>{{ product.ram }} GB</li>
+                                        <li><span>{{ product.gpu }}</span></li>
+                                    </ul>
+                                </div>
+                                <div class="car__item__price">
+                                    <span class="car-option"><a
+                                            href="{% url 'product:detail' product.id %}">상세보기</a></span>
+                                    <h6>$218<span>/Month</span></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endblock %}
+
+                <!-- 기존 페이지네이션 -->
+                <!-- <div class="pagination__option">
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#"><span class="arrow_carrot-2right"></span></a>
+                </div> -->
+
+                <!-- 나의 페이지네이션 -->
+                <div class="pagination__option">
+                    {% include 'pagination.html' %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Car Section End -->
+
+{% endblock %}

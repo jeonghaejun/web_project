@@ -1,0 +1,39 @@
+{% extends "product/product.html" %}
+{% load static %}
+
+{% block list %}
+<!-- 검색된 노트북 리스트 -->
+<div class="row">
+    {% if not product_list %}
+        <b><i>해당 상품이 존재하지 않습니다.</i></b>
+    {% else %}
+        {% for product in product_list %}
+        <div class="col-lg-4 col-md-4">
+            <div class="car__item">
+                <div class="car__item__pic__slider owl-carousel">
+                    <img src="{{ product.imageURL }}" alt="">
+                    <img src="{{ product.imageURL }}" alt="">
+                    <img src="{{ product.imageURL }}" alt="">
+                    <img src="{{ product.imageURL }}" alt="">
+                </div>
+                <div class="car__item__text">
+                    <div class="car__item__text__inner">
+                        <div class="label-date">{{ product.name }}</div>
+                        <h5>{{ product.content }}</h5>
+                        <ul>
+                            <li><span>{{ product.cpu }}</span></li>
+                            <li>{{ product.ram }} GB</li>
+                            <li><span>{{ product.gpu }}</span></li>
+                        </ul>
+                    </div>
+                    <div class="car__item__price">
+                        <span class="car-option"><a href="{% url 'product:detail' product.id %}">상세보기</a></span>
+                        <h6>$218<span>/Month</span></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
