@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from product.models import *
-from django.views.generic import ListView, DetailView, FormView
+from django.views.generic import ListView, DetailView
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -64,7 +65,6 @@ def search(request):
             query = query | Q(maker__icontains=i)
         product_list = product_list.filter(query)
     
-    print(product_list)
     context['product_list'] = product_list
     context['maker_list'] = maker_list
     context['q'] = q

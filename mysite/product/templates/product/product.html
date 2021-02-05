@@ -40,8 +40,8 @@
                     <form action="{% url 'product:search' %}" method="post">{% csrf_token %}
                         {% for maker in maker_list %}
                             <div class="form-check form-check">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="f", value={{maker}}>
-                                <class class="form-check-label" for="inlineCheckbox5" style="color: #CDCDCD">{{maker}}</class>
+                                <input class="form-check-input" type="checkbox" name="f", value={{maker}}>
+                                <class class="form-check-label" style="color: #CDCDCD">{{maker}}</class>
                                 <br>
                             </div>
                         {% endfor %}
