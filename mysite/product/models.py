@@ -1,6 +1,8 @@
-from django.db import models
+from django.db import DefaultConnectionProxy, models
+from taggit.managers import TaggableManager
 
 # Create your models here.
+
 
 class Product(models.Model):
     name = models.CharField('NAME', max_length=50)
@@ -9,13 +11,14 @@ class Product(models.Model):
     gpu = models.CharField('GPU', max_length=50)
     battery = models.CharField('BATTERY', max_length=20)
     volume = models.CharField('VOLUME', max_length=20)
-    weight = models.CharField('WEIGHT',max_length=20)
-    display = models.DecimalField('DISPLAY', decimal_places=1,max_digits=3)
+    weight = models.CharField('WEIGHT', max_length=20)
+    display = models.DecimalField('DISPLAY', decimal_places=1, max_digits=3)
     maker = models.CharField('MAKER', max_length=50)
     sw_os = models.CharField('SW_OS', max_length=20, default='')
     price = models.CharField('PRICE', max_length=50)
     image = models.ImageField('IMAGE', blank=True)
     content = models.ImageField('CONTENT', blank=True)
+    tags = TaggableManager(blank=True)
 
     def __str__(self):
         return self.name
@@ -26,8 +29,9 @@ class Product(models.Model):
             url = self.image.url
         except:
             url = ''
-        
+
         return url
+
 
 class Maker_list(models.Model):
     maker_list = models.CharField(verbose_name='MAKER_LIST', max_length=50)
@@ -35,16 +39,18 @@ class Maker_list(models.Model):
     def __str__(self):
         return self.maker_list
 
+
 class Cpu_list(models.Model):
-    manufacturer = models.CharField(verbose_name='MANUFACTURER', max_length=50)
-    series = models.CharField(verbose_name='SERIES', max_length=20)
-    generation = models.CharField(verbose_name='GENERATION', max_length=20)
-    
+    cpu_list = models.CharField(
+        verbose_name='CPU_LIST', max_length=50, default='')
+
     def __str__(self):
-        return self.manufacturer
+        return self.cpu_list
+
 
 class Ram_list(models.Model):
-    ram_weight = models.CharField(verbose_name='RAM_WEIGHT', max_length=50)
+    ram_volume = models.CharField(
+        verbose_name='RAM_VOLUME', max_length=20, default='')
 
     def __str__(self):
-        return self.ram_weight
+        return self.ram_volume

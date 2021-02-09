@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR =  os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'widget_tweaks',
+
+    'taggit.apps.TaggitAppConfig',
+    'taggit_templatetags2',
+
     'product',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -77,12 +82,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-    'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'django_notebook', # 데이터베이스 명
-    'HOST': 'localhost', # 서버 IP
-    'PORT': '3306', # 포트번호
-    'USER': 'webproj', # 사용자 ID
-    'PASSWORD': '1234' # 비밀번호
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_notebook',  # 데이터베이스 명
+        'HOST': 'localhost',  # 서버 IP
+        'PORT': '3306',  # 포트번호
+        'USER': 'webproj',  # 사용자 ID
+        'PASSWORD': '1234'  # 비밀번호
     }
 }
 
@@ -130,3 +135,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # LOGIN_REDIRECT_URL = '/' # 커스터마이징
+# 로그인 관련 URL 디폴트 값
+LOGIN_URL = '/accounts/login/'  # 로그인 페이지 URL
+LOGIN_REDIRECT_URL = '/accounts/profile'  # 로그인 성공시 리다이렉트할 URL
+
+LOGOUT_REDIRECT_URL = '/'  # 로그 아웃시 리다이렉트할 URL
+LOGIN_REDIRECT_URL = '/'  # 로그인 성공시 리다이렉트할 URL
+
+# AUTH_USER_MODEL = 'users.MyUser'
+# USERNAME_FIELD = 'email'
+# REQUIRED_FIELDS = ['name']

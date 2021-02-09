@@ -2,11 +2,9 @@
         <!-- << -->
         {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}" tabindex="-1"><span class="arrow_carrot-2left"></span></a>
-        {% else %}
-            <a href="#" tabindex="-1"><span class="arrow_carrot-2left"></span></a>
         {% endif %}
         
-        <!-- 페이지 -->
+        <!-- 페이지 번호 링크-->
         {% for page in page_range %}
             <a class="{% if page == page_obj.number %} active {% endif %}" href="?page={{ page }}">{{ page }}</a>
         {% endfor %}
@@ -14,7 +12,5 @@
         <!-- >> -->
         {% if page_obj.has_next %}
             <a href="?page={{ page_obj.next_page_number }}"><span class="arrow_carrot-2right"></span></a>
-        {% else %}
-            <a href="#"><span class="arrow_carrot-2right"></span></a>
         {% endif %}
 {% endif %}
