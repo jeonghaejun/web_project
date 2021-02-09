@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block list %}
+
 <!-- 검색된 노트북 리스트 -->
 <div class="row">
     {% if not product_list %}
@@ -36,4 +37,10 @@
         {% endfor %}
     {% endif %}
 </div>
+
+<!-- 나의 페이지네이션 -->
+<div class="pagination__option">
+    {% include 'pagination_search.html' %}
+</div>
+
 {% endblock %}

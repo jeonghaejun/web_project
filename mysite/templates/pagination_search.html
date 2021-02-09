@@ -1,0 +1,17 @@
+
+{% if is_paginated %}
+    <!-- << -->
+    {% if has_previous_page %}
+        <a href='?{{ get_full_path }}&page={{ previous_page }}' tabindex="-1"><span class="arrow_carrot-2left"></span></a></a>
+    {% endif %}
+
+    <!--페이지 번호 링크-->
+    {% for page in current_page_group_range %}
+        <a class="{% if page == page_obj.number %} active {% endif %}" href="?{{ get_full_path }}&page={{ page }}">{{ page }}</a>
+    {% endfor %}
+    
+    <!-- << -->
+    {% if has_next_page %}
+        <a href='?{{ get_full_path }}&page={{ next_page }}'><span class="arrow_carrot-2right"></span></a>
+    {% endif %}
+{% endif %}

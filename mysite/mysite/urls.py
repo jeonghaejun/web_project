@@ -20,9 +20,17 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from mysite.views import HomeView
+from mysite.views import HomeView, UserCreateView, UserCreateDoneTV
 
 
 urlpatterns = [
+    # 로그인, 로그아웃, 비밀번호 변경 등 담당
+    path('accounts/', include('django.contrib.auth.urls')),
+    # 회원 가입 및 처리
+    path('accounts/register/', UserCreateView.as_view(), name='register'),
+    path('accounts/register/done/', UserCreateDoneTV.as_view(),
+        name='register_done'),
+
     path('', HomeView.as_view(), name='index'),
     
     path('admin/', admin.site.urls),

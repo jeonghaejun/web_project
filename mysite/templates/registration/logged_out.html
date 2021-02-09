@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}logged_out.html{% endblock %}
+
+{% load static %}
+
+
+<!-- Breadcrumb End -->
+{% block content %}
+<div class="breadcrumb-option set-bg" data-setbg="{% static 'img/breadcrumb-bg.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Car Listing</h2>
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <span>About</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!-- Breadcrumb Begin -->
+
+<!-- logout Section Begin -->
+{% block content %}
+
+<h1>Logged out</h1>
+<br>
+<div>
+    <i class="fas fa-quote-left"></i>
+    <span class="h6">&ensp;Thanks for spending your quality time with this web
+        site today.&ensp;</span>
+    <i class="fas fa-quote-right"></i>
+</div>
+<p class="font-italic"><a href="{% url 'login' %}">Log in again</a></p>
+{% endblock %}
+<!-- logout Section End -->
