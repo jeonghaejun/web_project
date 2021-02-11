@@ -1,13 +1,118 @@
 {% extends "base.html" %}
-{% block title %}taggit_product_list.html
-{% endblock %}
+{% load static %}
+
 {% block content %}
-    <h1>Products for tag -
-        {{ tagname }}</h1>
-    <br>
-        {% for product in object_list %}
-            <h2>
-                <a href='{{ product.get_absolute_url }}'>{{ product.name }}</a>
-            </h2>
-        {% endfor %}
-    {% endblock %}
+<!-- Breadcrumb End -->
+<div class="breadcrumb-option set-bg" data-setbg="{% static 'img/breadcrumb-bg.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Car Listing</h2>
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <span>About</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Begin -->
+
+<!-- Car Section Begin -->
+<section class="car spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="car__sidebar">
+                    <!-- 검색 -->
+                    <div class="car__search">
+                        <h3>{{ tagname }}</h3>
+
+                    </div>
+
+                    <!-- 체크박스 -->
+                    <div class="row">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-12">
+                <!-- 조건 필터 -->
+                <div class="car__filter__option">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="car__filter__option__item">
+                                <h6>Show On Page</h6>
+                                <select>
+                                    <option value="">9 Car</option>
+                                    <option value="">15 Car</option>
+                                    <option value="">20 Car</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="car__filter__option__item car__filter__option__item--right">
+                                <h6>Sort By</h6>
+                                <select>
+                                    <option value="">Price: Highest Fist</option>
+                                    <option value="">Price: Lowest Fist</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% block list %}
+                <!-- 노트북 리스트 -->
+                <div class="row">
+                    {% for product in object_list %}
+                    <div class="col-lg-4 col-md-4">
+                        <div class="car__item">
+                            <div class="car__item__pic__slider owl-carousel">
+                                <img src="{{ product.imageURL }}" alt="">
+                            </div>
+                            <div class="car__item__text">
+                                <div class="car__item__text__inner">
+                                    <div class="label-date">{{ product.name }}</div>
+                                    <h5>{{ product.content }}</h5>
+                                    <ul>
+                                        <li><span>{{ product.cpu }}</span></li>
+                                        <li>{{ product.ram }} GB</li>
+                                        <li><span>{{ product.gpu }}</span></li>
+                                    </ul>
+                                </div>
+                                <div class="car__item__price">
+                                    <span class="car-option"><a
+                                            href="{% url 'product:detail' product.id %}">상세보기</a></span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- 기존 페이지네이션 -->
+                <!-- <div class="pagination__option">
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#"><span class="arrow_carrot-2right"></span></a>
+                </div> -->
+
+                <!-- 나의 페이지네이션 -->
+                <div class="pagination__option">
+                    {% include 'pagination.html' %}
+                </div>
+                {% endblock %}
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Car Section End -->
+
+{% endblock %}

@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HVAC | Template</title>
 
-   
+
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -26,7 +26,8 @@
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body>
@@ -39,22 +40,16 @@
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__widget">
-            <a href="#"><i class="fa fa-cart-plus"></i></a>
-            <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
-            <a href="#" class="primary-btn">Add Car</a>
+
         </div>
         <div class="offcanvas__logo">
             <a href="{% url 'index' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <ul class="offcanvas__widget__add">
-            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
-            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
+
         </ul>
-        <div class="offcanvas__phone__num">
-            <i class="fa fa-phone"></i>
-            <span>(+12) 345 678 910</span>
-        </div>
+
         <div class="offcanvas__social">
             <a href="#"><i class="fa fa-facebook"></i></a>
             <a href="#"><i class="fa fa-twitter"></i></a>
@@ -66,7 +61,7 @@
 
     <!-- Header Section Begin -->
     <header class="header">
-        
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-2">
@@ -80,44 +75,46 @@
                             <ul>
                                 <li><a href="{% url 'index' %}">Home</a></li>
                                 <li><a href="{% url 'product:list' %}">Product</a></li>
-                                <li><a href="./blog.html">Blog</a></li>
-                                <li><a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="./about.html">About Us</a></li>
-                                        <li><a href="./car-details.html">Car Details</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="./about.html">About</a></li>
-                                <li><a href="./contact.html">Contact</a></li>
-                            </ul>
-                        </nav>
-                        <div class="btn-group">
-                            <button type="button" class="btn primary-btn text-white"><a href="#"><i class="fa fa-cart-plus"></i></a></button>
-                            <button type="button" class="btn primary-btn text-white"><a href="#" class="search-switch"><i class="fa fa-search">Search</i></a></button>
-                            {% if user.is_active %}
-                            <div class="btn-group">
-                                <button type="button" class="btn primary-btn text-white dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i>  {{ user.username }}
-                                    <span class="caret"></span></button>
-                                    <div class="dropdown-menu" style="padding: 0;">
-                                        <a class="dropdown-item btn primary-btn text-white" style="background: #db2d2e;" href="{% url 'logout' %}">Logout</a>
-                                        <a class="dropdown-item btn primary-btn text-white" style="background: #db2d2e;" href="{% url 'password_change' %}">Change Password</a>
+                                <li><a href="{% url 'product:tagged_object_list' '휴대용' %}">휴대용</a></li>
+                                <li><a href="{% url 'product:tagged_object_list' '사무인강용' %}">사무용</a></li>
+                                <li><a href="{% url 'product:tagged_object_list' '게임용' %}">게임용</a></li>
+                                <li><a href="{% url 'product:tagged_object_list' '그래픽작업용' %}">그래픽작업용</a></li>
+                                <div class="btn-group">
+                                    <button type="button" class="btn primary-btn text-white"><a href="#"><i
+                                                class="fa fa-cart-plus"></i></a></button>
+                                    {% if user.is_active %}
+                                    <div class="btn-group">
+                                        <button type="button" class="btn primary-btn text-white dropdown-toggle"
+                                            data-toggle="dropdown"><i class="fas fa-user"></i> {{ user.username }}
+                                            <span class="caret"></span></button>
+                                        <div class="dropdown-menu" style="padding: 0;">
+                                            <a class="dropdown-item btn primary-btn text-white"
+                                                style="background: #db2d2e;" href="{% url 'logout' %}">Logout</a>
+                                            <a class="dropdown-item btn primary-btn text-white"
+                                                style="background: #db2d2e;" href="{% url 'password_change' %}">Change
+                                                Password</a>
+                                        </div>
                                     </div>
-                            </div>
                                     {% else %}
-                            <div class="btn-group">
-                                <button type="button" class="btn primary-btn text-white dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i>  Anonymous
-                                    <span class="caret"></span></button>
-                                <div class="dropdown-menu" style="padding: 0;">
-                                    <a class="dropdown-item btn primary-btn text-white" style="background: #db2d2e;" href="{% url 'login' %}">Login</a>
-                                    <a class="dropdown-item btn primary-btn text-white" style="background: #db2d2e;" href="{% url 'register' %}">Register</a>
-                                </div>
-                            </div>
-                            {% endif %}
-                        </div>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn primary-btn text-white dropdown-toggle"
+                                            data-toggle="dropdown"><i class="fas fa-user"></i>
+                                            <span class="caret"></span></button>
+                                        <div class="dropdown-menu" style="padding: 0;">
+                                            <a class="dropdown-item btn primary-btn text-white"
+                                                style="background: #db2d2e;" href="{% url 'login' %}">Login</a>
+                                            <a class="dropdown-item btn primary-btn text-white"
+                                                style="background: #db2d2e;" href="{% url 'register' %}">Register</a>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                            </ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
 
         <div class="canvas__open">

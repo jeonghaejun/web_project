@@ -175,12 +175,45 @@ class TaggedObjectLV(ListView):
     template_name = 'taggit/taggit_product_list.html'
     model = Product
 
+    paginate_by = 6
+
     def get_queryset(self):
         return Product.objects.filter(tags__name=self.kwargs.get('tag'))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tagname'] = self.kwargs['tag']
+        # 페이지네이션
+        paginator = context['paginator']
+        page_numbers_range = 5
+        max_index = len(paginator.page_range)
+
+        page = self.request.GET.get('page')
+        current_page = int(page) if page else 1
+
+        start_index = int((current_page-1) /
+                          page_numbers_range) * page_numbers_range
+        end_index = start_index + page_numbers_range
+
+        if end_index >= max_index:
+            end_index = max_index
+
+        page_range = paginator.page_range[start_index:end_index]
+        context['page_range'] = page_range
+
+        # 검색 필터 목록
+        maker_list = Maker_list.objects.all()
+        context['maker_list'] = maker_list
+        context['number_of_maker_list'] = maker_list.count()
+
+        cpu_list = Cpu_list.objects.all()
+        context['cpu_list'] = cpu_list
+        context['number_of_cpu_list'] = cpu_list.count()
+
+        ram_list = Ram_list.objects.all()
+        context['ram_list'] = ram_list
+        context['number_of_ram_list'] = ram_list.count()
+
         return context
 
 # 함수형 search
