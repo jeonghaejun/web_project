@@ -1,4 +1,5 @@
 {% extends "product/product.html" %}
+{% load humanize %}
 {% load static %}
 
 {% block list %}
@@ -62,7 +63,7 @@
                                     href="{% url 'product:detail' product.id %}">상세보기</a></span>
                             {% if product.price < 1 %} <h6>임시품절</h6>
                                 {% else %}
-                                <h6>{{ product.price }}<span>원</span></h6>
+                                <h6>{{ product.price|intcomma }}<span>원</span></h6>
                                 {% endif %}
                         </div>
                     </div>

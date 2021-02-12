@@ -232,7 +232,7 @@ function collision($div1, $div2) {
 }
 
 function showProducts(minPrice, maxPrice) {
-    $("#products li").hide().filter(function() {
+    $("#products li").hide().filter(function () {
         var price = parseInt($(this).data("price"), 10);
         return price >= minPrice && price <= maxPrice;
     }).show();
@@ -330,15 +330,15 @@ $(function () {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(function () {
         var handleValue = $('<span class="ui-slider-handle-value"></span>');
-        var handleValueMin = handleValue.text($('.js-price-range').slider('values', 0 ) + '만원');
+        var handleValueMin = handleValue.text($('.js-price-range').slider('values', 0) + '만원');
         $('.js-price-range .ui-slider-handle:nth-child(2)').append(handleValueMin);
     });
 
-    setTimeout(function() {
+    setTimeout(function () {
         var handleValue = $('<span class="ui-slider-handle-value"></span>');
-        var handleValueMax = handleValue.text($('.js-price-range').slider('values', 1 ) + '만원');
+        var handleValueMax = handleValue.text($('.js-price-range').slider('values', 1) + '만원');
         $('.js-price-range .ui-slider-handle:nth-child(3)').append(handleValueMax);
     });
 
