@@ -1,5 +1,5 @@
 {% extends "base.html" %}{% load static %}
-
+{% load humanize %}
 {% block content %}
 <!-- Breadcrumb End -->
 <div class="breadcrumb-option set-bg" data-setbg="{% static 'img/breadcrumb-bg.jpg' %}">
@@ -246,7 +246,7 @@
                     <div class="car__details__sidebar__payment">
                         <ul>
                             <li>Price
-                                <span> {{product.price}}원</span>
+                                <span> {{product.price|intcomma}}원</span>
                             </li>
                         </ul>
                         <a href="#" class="primary-btn">

@@ -1165,6 +1165,7 @@ ol {
 
 .pagination__option {
 	padding-top: 20px;
+	text-align: center;
 }
 
 .pagination__option a {
@@ -3146,7 +3147,7 @@ ol {
 
 @media only screen and (min-width: 1200px) {
 	.container {
-		max-width: 1170px;
+		max-width: 1500px;
 	}
 }
 

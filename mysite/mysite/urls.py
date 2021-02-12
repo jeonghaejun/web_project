@@ -28,13 +28,12 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     # 회원 가입 및 처리
     path('accounts/register/', UserCreateView.as_view(), name='register'),
-    path('accounts/register/done/', UserCreateDoneTV.as_view(),
-        name='register_done'),
-
+    path('accounts/register/done/',
+         UserCreateDoneTV.as_view(), name='register_done'),
     path('', HomeView.as_view(), name='index'),
-    
+
     path('admin/', admin.site.urls),
     path('product/', include('product.urls')),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

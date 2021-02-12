@@ -8,6 +8,11 @@ admin.site.register(Product)
 admin.site.register(Maker_list)
 admin.site.register(Cpu_list)
 admin.site.register(Ram_list)
+admin.site.register(Gpu_list)
+admin.site.register(Os_list)
+admin.site.register(Ssd_list)
+admin.site.register(Display_list)
+admin.site.register(Weight_list)
 
 
 # @admin.register(Product)

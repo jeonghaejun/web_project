@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
+    'django.contrib.humanize',
 
     'product',
     'user',

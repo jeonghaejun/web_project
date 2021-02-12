@@ -1,11 +1,256 @@
 {% extends "base.html" %}
+{% load humanize %}
 {% load static %}
+
+{% block extra-style %}
+<style>
+    a:hover,
+    a:focus {
+        text-decoration: none;
+        outline: none;
+        color: #4971FF;
+    }
+
+    .btn-secondary.focus,
+    .btn-secondary:focus {
+        color: black;
+        background-color: #f7f7f7;
+        border-color: #545b62;
+        box-shadow: 0 0 0 0.2rem rgb(130 138 145 / 50%);
+    }
+
+    .btn-secondary:not(:disabled):not(.disabled).active,
+    .btn-secondary:not(:disabled):not(.disabled):active,
+    .show>.btn-secondary.dropdown-toggle {
+        color: black;
+        background-color: #f7f7f7;
+        border-color: #4e555b;
+    }
+
+    .btn-secondary {
+        color: black;
+        background-color: #e3e7eb;
+        border-color: #6c757d;
+    }
+
+    .col-3 img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+
+    body {
+        padding: 40px 0 0 0;
+    }
+
+    .value {
+        position: absolute;
+        top: 30px;
+        left: 50%;
+        margin: 0 0 0 -20px;
+        width: 40px;
+        text-align: center;
+        display: block;
+
+        /* optional */
+
+        font-weight: normal;
+        font-family: Verdana, Arial, sans-serif;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .price-range-both.value {
+        width: 100px;
+        margin: 0 0 0 -50px;
+        top: 26px;
+    }
+
+    .price-range-both {
+        display: none;
+    }
+
+    .value i {
+        font-style: normal;
+    }
+
+    .ui-slider {
+        position: relative;
+        text-align: left;
+    }
+
+    .ui-slider .ui-slider-handle {
+        position: absolute;
+        z-index: 2;
+        width: 1.2em;
+        height: 1.2em;
+        cursor: default;
+        -ms-touch-action: none;
+        touch-action: none;
+    }
+
+    .ui-slider .ui-slider-range {
+        position: absolute;
+        z-index: 1;
+        font-size: .7em;
+        display: block;
+        border: 0;
+        background-position: 0 0;
+    }
+
+    .ui-slider.ui-state-disabled .ui-slider-handle,
+    .ui-slider.ui-state-disabled .ui-slider-range {
+        filter: inherit;
+    }
+
+    .ui-slider-horizontal {
+        height: .8em;
+    }
+
+    .ui-slider-horizontal .ui-slider-handle {
+        top: -.3em;
+        margin-left: -.6em;
+    }
+
+    .ui-slider-horizontal .ui-slider-range {
+        top: 0;
+        height: 100%;
+    }
+
+    .ui-slider-horizontal .ui-slider-range-min {
+        left: 0;
+    }
+
+    .ui-slider-horizontal .ui-slider-range-max {
+        right: 0;
+    }
+
+    .ui-slider-vertical {
+        width: .8em;
+        height: 100px;
+    }
+
+    .ui-slider-vertical .ui-slider-handle {
+        left: -.3em;
+        margin-left: 0;
+        margin-bottom: -.6em;
+    }
+
+    .ui-slider-vertical .ui-slider-range {
+        left: 0;
+        width: 100%;
+    }
+
+    .ui-slider-vertical .ui-slider-range-min {
+        bottom: 0;
+    }
+
+    .ui-slider-vertical .ui-slider-range-max {
+        top: 0;
+    }
+
+    .range .ui-slider-handle {
+        width: 18px;
+        height: 18px;
+        top: -7px;
+        background: orange;
+        /* border-radius: 50%; */
+        box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.1);
+        transform: translateX(0);
+        outline: none;
+        cursor: pointer;
+    }
+
+    .ui-slider-handle-value {
+        font-size: 10px;
+        min-width: 50px;
+        text-align: center;
+        position: absolute;
+        padding-left: 5px;
+        padding-right: 5px;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, calc(-100% - 10px));
+        box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.1);
+        /* background-color: #fff; */
+        color: black;
+    }
+
+
+    .ui-slider-handle-value::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translateX(-50%) rotate(-45deg);
+        border: 3px solid transparent;
+        border-left-color: #fff;
+        border-bottom-color: #fff;
+        box-shadow: -7px 6px 7px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .range__slider {
+        border: none;
+        background: #aaaaaa;
+        border-radius: 0;
+        margin-top: 58px;
+        height: 7px;
+    }
+
+    .range__label {
+        font-size: 15px;
+        line-height: 20px;
+        color: #808080;
+    }
+
+    .range__input {
+        /* width: 100px;
+        height: 35px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        border: 1px solid #808080;
+        display: block;
+        text-align: center;
+        font-size: 26px;
+        color: #000000; */
+        height: 35px;
+        width: 100%;
+        font-size: 15px;
+        color: #727171;
+        padding-left: 10px;
+        border: 1px solid #ebebeb;
+        background: #ffffff;
+    }
+
+    .range__text-inputs {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .range__wrapper {
+        text-align: left;
+        line-height: 16px;
+    }
+
+    .ui-slider-range {
+        background: #ee3643;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        opacity: 1;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
 
 <!-- Breadcrumb End -->
-<div class="breadcrumb-option set-bg" data-setbg="{% static 'img/breadcrumb-bg.jpg' %}">
-    <div class="container">
+<div class="breadcrumb-option set-bg" data-setbg="{% static 'img/notebook_main.jpg' %}">
+    <div class="container" style="margin: 10px;">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
@@ -25,96 +270,317 @@
 <section class="car spad">
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-lg-3">
                 <div class="car__sidebar">
+
                     <!-- 검색 -->
                     <div class="car__search">
                         <h5>검색어</h5>
                         <form action="{% url 'product:search' %}" method="GET">{% csrf_token %}
-                            <input type="text" placeholder="Search..." name="q" value="{{q}}">
+                            <input type="text"
+                                placeholder="{% if request.GET.q %} {{ request.GET.q }} {% else %} Search... {% endif %}"
+                                name="q" value="{{q}}">
                             <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
                     </div>
-                        
+
                     <!-- 체크박스 -->
-                    <div class="row">
+                    <div class="car__filter">
                         <form action="{% url 'product:search' %}" method="GET">{% csrf_token %}
 
+                            <!-- <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Dropdown button
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div> -->
+
                             <!-- 메이커 -->
+                            <h5>Maker</h5>
                             <div class="col-12">
-                                <h5>Maker</h5>
                                 <div class="form-check">
+                                    {% for maker in maker_list %}
+                                    {% if maker in f_maker_list %}
                                     <div class="row">
-                                        {% for maker in maker_list %}
-                                            <div class="col-2">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="f_maker", value={{maker}}> {{maker}}
-                                                </label>
-                                            </div>
-                                        {% endfor %}
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_maker"
+                                                value={{maker}} checked> {{maker}}
+                                        </label>
                                     </div>
+                                    {% else %}
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_maker"
+                                                value={{maker}}> {{maker}}
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
                                 </div>
                             </div>
-                            <br><br>
+                            <br>
 
                             <!-- CPU -->
+                            <h5>CPU</h5>
                             <div class="col-12">
-                                <h5>CPU</h5>
                                 <div class="form-check">
+                                    {% for cpu in cpu_list %}
+                                    {% if cpu in f_cpu_list %}
                                     <div class="row">
-                                        {% for cpu in cpu_list %}
-                                            <div class="col-3">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="f_cpu", value={{cpu}}> {{cpu}}
-                                                </label>
-                                            </div>
-                                        {% endfor %}
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_cpu" value={{cpu}}
+                                                checked> {{cpu}}
+                                        </label>
                                     </div>
+                                    {% else %}
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_cpu" value={{cpu}}>
+                                            {{cpu}}
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
                                 </div>
                             </div>
-                            <br><br>
+                            <br>
 
                             <!-- RAM -->
+                            <h5>RAM</h5>
                             <div class="col-12">
-                                <h5>RAM</h5>
                                 <div class="form-check">
+                                    {% for ram in ram_list %}
+                                    {% if ram in f_ram_list %}
                                     <div class="row">
-                                        {% for ram in ram_list %}
-                                            <div class="col-2">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="f_ram", value={{ram}}> {{ram}}GB
-                                                </label>
-                                            </div>
-                                        {% endfor %}
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_ram" value={{ram}}
+                                                checked> {{ram}}GB
+                                        </label>
                                     </div>
+                                    {% else %}
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_ram" value={{ram}}>
+                                            {{ram}}GB
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
                                 </div>
                             </div>
-                            
+                            <br>
+
+                            <!-- GPU -->
+                            <h5>그래픽카드</h5>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    {% for gpu in gpu_list %}
+                                    {% if gpu in f_gpu_list %}
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_gpu" value={{gpu}}
+                                                checked> {{gpu}}
+                                        </label>
+                                    </div>
+                                    {% else %}
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_gpu" value={{gpu}}>
+                                            {{gpu}}
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <br>
+
+                            <!-- SSD -->
+                            <h5>SSD용량</h5>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    {% for ssd in ssd_list %}
+                                    {% if ssd in f_ssd_list %}
+
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_ssd" value={{ssd}}
+                                                checked>{{ssd}}
+                                        </label>
+                                    </div>
+
+
+                                    {% else %}
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_ssd"
+                                                value={{ssd}}>{{ssd}}
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <br>
+
+                            <!-- OS -->
+                            <h5>운영체제</h5>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    {% for os in os_list %}
+                                    {% if os in f_os_list %}
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_os" value={{os}}
+                                                checked>{{os}}
+                                        </label>
+                                    </div>
+                                    {% else %}
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_os"
+                                                value={{os}}>{{os}}
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <br>
+
+                            <!-- DISPLAY -->
+                            <h5>화면크기</h5>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    {% for display in display_list %}
+                                    {% if display in f_display_list %}
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_display"
+                                                value={{display}} checked>{{display}} 인치대
+                                        </label>
+                                    </div>
+                                    {% else %}
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_display"
+                                                value={{display}}>{{display}} 인치대
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <br>
+
+
+                            <!-- WEIGHT -->
+                            <h5>무게</h5>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    {% for weight in weight_list %}
+                                    {% if weight in f_weight_list %}
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_weight"
+                                                value={{weight}} checked>{{weight}} ~ {{ forloop.counter }} kg
+                                        </label>
+                                    </div>
+                                    {% else %}
+                                    <div class="row">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="f_weight"
+                                                value={{weight}}>{{weight}} ~ {{ forloop.counter }} kg
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <br>
+
+                            <!-- 가격 -->
+                            <h5>가격</h5>
+                            <div class="range">
+                                <div class="col-12">
+                                    <div class="range__text-inputs">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-6 range__wrapper" style="padding: 0;">
+                                                        <label class="range__label" for="price_min">From</label>
+                                                        <input class="js-price_min range__input" type="number"
+                                                            name="price_min" id="price_min" type="number"
+                                                            placeholder="{% if request.GET.price_min %} {{ request.GET.price_min }} {% endif %}" />
+                                                    </div>
+                                                    <div class="col-6" style="padding-left: 3%;">
+                                                        <hr style="border-top: 1px solid rgba(0,0,0,0);"> 만원
+                                                        <!-- <h5 style="padding-top: 50%; font-size: 90%; margin: 0;">만원</h5> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-6 range__wrapper" style="padding: 0;">
+                                                        <label class="range__label" for="price_max">To</label>
+                                                        <input class="js-price_max range__input" type="number"
+                                                            name="price_max" id="price_max" type="number"
+                                                            placeholder="{% if request.GET.price_max %} {{ request.GET.price_max }} {% endif %}" />
+                                                    </div>
+                                                    <div class="col-6" style="padding-left: 3%;">
+                                                        <hr style="border-top: 1px solid rgba(0,0,0,0);"> 만원
+                                                        <!-- <h5 style="padding-top: 50%; font-size: 90%; margin: 0;">만원</h5> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="js-price-range range__slider" style="border:0;"></div>
+                            </div>
+
+
                             <br><br><br><br>
-                            
+                            <!-- <div class="filter-price">
+                                <p>가격:</p>
+                                <div class="price-range-wrap">
+                                    <div class="filter-price-range"></div>
+                                    <div class="range-slider">
+                                        <div class="price-input">
+                                            <input type="text" id="filterAmount">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
                             <!-- 필터 검색 버튼 -->
                             <div class="car__filter__btn">
                                 <button type="submit" class="site-btn">검색</button>
+                                <button type="button" class="site-btn"><a href="{% url 'product:list' %}"
+                                        style="color: white;">초기화</a></button>
                             </div>
 
-                        </form >
-                    </div>
 
+                        </form>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-12">
-                <!-- 조건 필터 -->
+            <div class="col-lg-9">
+
+                {% block list %}
+                <!-- 정렬 필터 -->
                 <div class="car__filter__option">
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
-                            <div class="car__filter__option__item">
-                                <h6>Show On Page</h6>
-                                <select>
-                                    <option value="">9 Car</option>
-                                    <option value="">15 Car</option>
-                                    <option value="">20 Car</option>
-                                </select>
-                            </div>
+                            <h6 style="line-height: 35px; font-size: 20px;"><strong>총 {{number_of_product}} 건</strong>
+                            </h6>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="car__filter__option__item car__filter__option__item--right">
@@ -128,33 +594,52 @@
                     </div>
                 </div>
 
-                {% block list %}
                 <!-- 노트북 리스트 -->
                 <div class="row">
                     {% for product in products %}
-                    <div class="col-lg-4 col-md-4">
-                        <div class="car__item">
-                            <div class="car__item__pic__slider owl-carousel">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="car__item" style="height: max-content;">
+                            <!-- <div class="car__item__pic__slider owl-carousel"> -->
+                            <!-- <img src="{{ product.imageURL }}" alt=""> -->
+                            <!-- <img src="{{ product.imageURL }}" alt="">
                                 <img src="{{ product.imageURL }}" alt="">
-                                <img src="{{ product.imageURL }}" alt="">
-                                <img src="{{ product.imageURL }}" alt="">
-                                <img src="{{ product.imageURL }}" alt="">
-                            </div>
+                                <img src="{{ product.imageURL }}" alt=""> -->
+                            <!-- </div> -->
                             <div class="car__item__text">
-                                <div class="car__item__text__inner">
-                                    <div class="label-date">{{ product.name }}</div>
-                                    <h5>{{ product.content }}</h5>
-                                    <ul>
-                                        <li><span>{{ product.cpu }}</span></li>
-                                        <li>{{ product.ram }} GB</li>
-                                        <li><span>{{ product.gpu }}</span></li>
-                                    </ul>
+
+                                <div class="row" style="margin-left: 0px;">
+                                    <div class="col-3">
+                                        <img src="{{ product.imageURL }}" alt=""
+                                            style="border-right: 1px solid #ebebeb; border-radius: 2px 2px 0 0; padding-left: 15px; padding-right: 15px;">
+                                    </div>
+                                    <div class="col-9" style="padding-left: 0px;">
+                                        <div class="car__item__text__inner">
+                                            <div class="label-date">{{ product.maker }}</div>
+                                            <h5><strong>{{ product.name }}</strong></h5>
+                                            <ul>
+                                                <li style="font-size: 12px;"><span>{{ product.cpu }}</span></li>
+                                                <li style="font-size: 12px;">{{ product.ram }} GB</li>
+                                                <li style="font-size: 12px;"><span>{{ product.gpu }}</span></li>
+                                                <li style="font-size: 12px;">{{ product.volume }}</li>
+                                            </ul>
+                                            <ul>
+                                                <li style="font-size: 12px;"><span>{{ product.sw_os }}</span></li>
+                                                <li style="font-size: 12px;">{{ product.display }}인치</li>
+                                                <li style="font-size: 12px;"><span>{{ product.weight }}kg</span></li>
+                                                <li style="font-size: 12px;">배터리 {{ product.battery }}Wh</li>
+                                            </ul>
+                                        </div>
+                                        <div class="car__item__price">
+                                            <span class="car-option" style="border-right: 1px solid #ebebeb;"><a
+                                                    href="{% url 'product:detail' product.id %}">상세보기</a></span>
+                                            {% if product.price < 1 %} <h6>임시품절</h6>
+                                                {% else %}
+                                                <h6>{{ product.price|intcomma }}<span>원</span></h6>
+                                                {% endif %}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="car__item__price">
-                                    <span class="car-option"><a
-                                            href="{% url 'product:detail' product.id %}">상세보기</a></span>
-                                    <h6>$218<span>/Month</span></h6>
-                                </div>
+
                             </div>
                         </div>
                     </div>
