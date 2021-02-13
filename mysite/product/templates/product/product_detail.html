@@ -75,7 +75,7 @@
                                                 </li>
                                                 <li>
                                                     <i class="fa fa-check"></i>
-                                                    저장장치 : SSD {{product.volume}}GB
+                                                    저장장치 : SSD {{product.volume}}
                                                 </li>
                                             </ul>
                                         </div>
@@ -111,7 +111,7 @@
                             </div>
                             <div>
                                 <b>TAGS</b>
-                                <i class="fas fa-tag"></i>
+                                <i class="fa fa-tag"></i>
                                 {% load taggit_templatetags2_tags %}
                                 {% get_tags_for_object object as "tags" %}
                                 {% for tag in tags %}

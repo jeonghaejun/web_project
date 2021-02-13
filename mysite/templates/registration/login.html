@@ -5,14 +5,14 @@
 {% block title %}login.html{% endblock %}
 
 {% block content %}
-<head>
+<!-- <head>
     <style>
     h3 {text-align: center;}
     p {text-align: center;}
     div {text-align: center;}
     form {text-align: center;}
     </style>
-    </head>
+</head> -->
 <!-- Breadcrumb End -->
 <section>
 <div class="breadcrumb-option set-bg" data-setbg="{% static 'img/breadcrumb-bg.jpg' %}">
@@ -20,10 +20,10 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Car Listing</h2>
+                    <h2>로그인</h2>
                     <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <span>About</span>
+                        <a href="{% url 'index' %}"><i class="fa fa-home"></i> Home</a>
+                        <span>로그인</span>
                     </div>
                 </div>
             </div>
@@ -34,8 +34,77 @@
 <!-- Breadcrumb Begin -->
 
 <!-- login Section Begin -->
+<section class="contact spad">
+    <div class="container" style="max-width: 1170px;">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact__text">
+                    <div class="section-title">
+                        <h2>Please enter your id and password.</h2>
+                        <!-- <p>Please enter your id and password.</p> -->
+                    </div>
+                    {% if form.errors %}
+                    <ul>
+                        <li style="color: red;"><strong>Wrong! Please correct the error(s) below.</strong></li>
+                        <li>{{ form.errors }}</li>
+                    </ul>
+                    <br>
+                    {% endif %}
+                    <!-- <ul>
+                        <li><span>Weekday</span> 08:00 am to 18:00 pm</li>
+                        <li><span>Saturday:</span> 10:00 am to 16:00 pm</li>
+                        <li><span>Sunday:</span> Closed</li>
+                    </ul> -->
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="contact__form">
+                    <form action="." method="POST">{% csrf_token %}
+                        <!-- <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Name">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Email">
+                            </div>
+                        </div> -->
+                        <div class="form-group row">
+                            <!-- {{ form.username| add_label_class:"col-form-label font-weight-bold" }} -->
+                            <div class="col-4">
+                                <h6 style="line-height: 50px; font-size: 20px;">이름</h6>
+                            </div>
+                            <div class="col-8">
+                                {{ form.username| add_class:"form-control"|attr:"autofocus" }}
+                            </div>
+                        </div>
 
-<section>
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <h6 style="line-height: 50px; font-size: 20px;">비밀번호</h6>
+                            </div>
+                            <div class="col-8">
+                            <!-- {{ form.password1| add_label_class:"col-form-label font-weight-bold" }} -->
+                                {{ form.password| add_class:"form-control" }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" value="Log in" class="site-btn" style="float: right;">Log in</button>
+                        </div>
+
+                        <!-- <input type="text" placeholder="Subject">
+                        <input type="text" placeholder="Subject">
+                        <input type="text" placeholder="Subject"> -->
+                        <!-- <textarea placeholder="Your Question"></textarea> -->
+                        <!-- <button type="submit" class="site-btn">Submit Now</button> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <section>
 <h3>Please Login</h3>
 <p class="font-italic">Please enter your id and password.</p>
 {% if form.errors %}
@@ -70,7 +139,7 @@
         </div>
     </div>
 </form>
-</section>
-{% endblock %}
-
+</section> -->
 <!-- login Section End -->
+
+{% endblock %}
