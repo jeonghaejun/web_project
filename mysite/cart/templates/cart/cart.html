@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block extra-style %}
+<style>
+    a:hover,
+    a:focus {
+        text-decoration: none;
+        outline: none;
+        color: #4971FF;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Breadcrumb End -->
+<div class="breadcrumb-option set-bg" data-setbg="{% static 'img/notebook_main.jpg' %}">
+    <div class="container" style="margin: 10px;">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>장바구니</h2>
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <span>장바구니</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Begin -->
+
+<section class="car spad">
+    <div class="container">
+        <!-- 장바구니 리스트 -->
+        <div class="row">
+            <div class="col-12">
+            {% if not user.is_active %}
+                <h2 style="text-align: center;"><strong>로그인이 필요합니다.</strong></h2>
+                <br>
+            </div>
+            <div class="col-12">
+                <h4 style="text-align: center;"><a href="{% url 'login' %}">로그인 하러가기</a></h4>
+            </div>
+            {% else %}
+            {% if not cart_items %}
+            <h2 style="text-align: center;"><strong>장바구니가 비어있습니다.</strong></h2>
+            <br>
+        </div>
+        <div class="col-12">
+            <h4 style="text-align: center;"><a href="{% url 'product:list' %}">쇼핑하러가기</a></h4>
+        </div>
+        {% else %}
+
+        {% for cart_item in cart_items %}
+        <div class="col-lg-12 col-md-12" style="padding: 0 50px 0 50px;">
+            <div class="car__item" style="height: max-content;">
+                <div class="car__item__text">
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="col-3">
+                            <a href="{{ cart_item.product.get_absolute_url }}">
+                                <img src="{{ cart_item.product.imageURL }}" alt=""
+                                    style="border-right: 1px solid #ebebeb; border-radius: 2px 2px 0 0; padding-left: 15px; padding-right: 15px;">
+                            </a>
+                        </div>
+                        <div class="col-9" style="padding-left: 0px;">
+                            <div class="car__item__text__inner" style="height: 174px;">
+                                <br>
+                                <h5 style="font-size: 25px;"><strong>{{ cart_item.product.name }}</strong></h5>
+                                <br>
+                                <ul>
+                                    <li style="font-size: 20px;"><span>상품 번호: {{ cart_item.product.id }}</span></li>
+                                    <li style="font-size: 20px;">개당 가격 : {{ cart_item.product.price | intcomma }} 원</li>
+                                    <li style="font-size: 20px;"><span>주문량 : {{ cart_item.quantity }} 개</span></li>
+                                    <li style="font-size: 20px; color: #4971FF;">총 가격 : {{ cart_item.sub_total | intcomma }}원</li>
+                                </ul>
+                            </div>
+                            <div class="car__item__price" style="text-align: left; padding-left: 20px;">
+                                <h5 style="font-size: 18px;">수량 변경 &nbsp;&nbsp;&nbsp;
+                                    <a href="{% url 'cart:add_cart' cart_item.product.id %}"><i
+                                            class="fa fa-plus-circle" style="font-size: 20px;"></i></a>&nbsp;&nbsp;
+                                    <a href="{% url 'cart:cart_remove' cart_item.product.id %}"><i
+                                            class="fa fa-minus-circle" style="font-size: 20px;"></i></a>&nbsp;
+                                </h5>
+                                <br>
+
+                                <h5 style="font-size: 18px;">삭제 &nbsp;&nbsp;&nbsp;<a
+                                        href="{% url 'cart:full_remove' cart_item.product.id %}"><i class="fa fa-trash"
+                                            style="font-size: 20px;"></i></a>&nbsp;</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-12 text-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="font-size: 20px;">전체 합계</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row" style="font-size: 20px;">
+                        전체 주문 금액 : <strong style="color: red;"> 총 {{ total | intcomma }}원</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div>
+
+            <a href="{% url 'product:list' %}" class="primary-btn">
+                <i class="fa fa-cart-plus"></i>
+                쇼핑 계속하기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#" class="primary-btn">
+                <i class="fa fa-credit-card"></i>
+                결제하기</a>
+
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -515,7 +515,8 @@
                                                     <div class="col-6 range__wrapper" style="padding: 0;">
                                                         <label class="range__label" for="price_min">From</label>
                                                         <input class="js-price_min range__input" type="number"
-                                                            name="price_min" id="price_min" type="number" />
+                                                            name="price_min" id="price_min" type="number"
+                                                            value="{% if price_min %}{{price_min}}{% else %}{{0}}{% endif %}">
                                                     </div>
                                                     <div class="col-6" style="padding-left: 3%;">
                                                         <hr style="border-top: 1px solid rgba(0,0,0,0);"> 만원
@@ -528,7 +529,8 @@
                                                     <div class="col-6 range__wrapper" style="padding: 0;">
                                                         <label class="range__label" for="price_max">To</label>
                                                         <input class="js-price_max range__input" type="number"
-                                                            name="price_max" id="price_max" type="number" />
+                                                            name="price_max" id="price_max" type="number"
+                                                            value="{% if price_max %}{{price_max}}{% else %}{{500}}{% endif %}">
                                                     </div>
                                                     <div class="col-6" style="padding-left: 3%;">
                                                         <hr style="border-top: 1px solid rgba(0,0,0,0);"> 만원
@@ -583,9 +585,10 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="car__filter__option__item car__filter__option__item--right">
                                 <h6>Sort By</h6>
-                                <select>
-                                    <option value="">Price: Highest Fist</option>
-                                    <option value="">Price: Lowest Fist</option>
+                                <select id="sort-select" onchange="location=this.value;">
+                                    <option class="sort-high_price" value="?sort=high_price">Price: Highest Fist
+                                    </option>
+                                    <option class="sort-low_price" value="?sort=low_price">Price: Lowest Fist</option>
                                 </select>
                             </div>
                         </div>

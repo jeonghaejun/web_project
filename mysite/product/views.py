@@ -16,6 +16,18 @@ class ProductLV(ListView):
     context_object_name = 'products'  # 컨텍스트 객체 이름 변경 / 디폴트는 object_list
     paginate_by = 9  # 페이지네이션, 페이지 당 문서 건 수
 
+    def get_ordering(self):
+        sort = self.request.GET.get('sort', '')
+        if sort == 'high_price':
+            ordering = self.request.GET.get('ordering', '-price')
+        elif sort == 'low_price':
+            ordering = self.request.GET.get('ordering', 'price')
+
+        else:
+            ordering = self.request.GET.get('ordering', 'id')
+
+        return ordering
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -207,7 +219,6 @@ class SearchLView(ListView):
         return context
 
     def get_queryset(self):
-
         product_list = Product.objects.all()
 
         q = self.request.GET.get('q', '')  # 검색에서 입력한 값이 넘어옴

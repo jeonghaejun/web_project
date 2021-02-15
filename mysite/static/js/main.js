@@ -264,7 +264,7 @@ function showProducts(minPrice, maxPrice) {
 // });
 
 $(function () {
-    var INITIAL_RANGE_VALUES = [0, 500];
+    let INITIAL_RANGE_VALUES = [document.getElementById('price_min').value, document.getElementById('price_max').value]
     var MIN_RANGE = 0;
     var MAX_RANGE = 500;
 
@@ -273,12 +273,16 @@ $(function () {
         min: MIN_RANGE,
         max: MAX_RANGE,
         values: INITIAL_RANGE_VALUES,
+
         slide: function (event, ui) {
             $('.js-price_min').val(ui.values[0]);
             $('.js-price_max').val(ui.values[1]);
+
             setHandleValues(ui.values);
         }
+
     });
+
 
     function getRangeValues(numberValue) {
         return $('.js-price-range').slider('values', numberValue);
@@ -349,4 +353,3 @@ $(function () {
     });
 
 });
-
