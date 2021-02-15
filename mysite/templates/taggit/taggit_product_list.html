@@ -1,9 +1,15 @@
 {% extends "base.html" %}
-{% load humanize %}
 {% load static %}
+{% load humanize %}
 
 {% block extra-style %}
 <style>
+    .btn-group .a:hover,
+    .btn-group .a:focus {
+        text-decoration: none;
+        outline: none;
+    }
+
     a:hover,
     a:focus {
         text-decoration: none;
@@ -249,15 +255,15 @@
 {% block content %}
 
 <!-- Breadcrumb End -->
-<div class="breadcrumb-option set-bg" data-setbg="{% static 'img/notebook_main.jpg' %}">
-    <div class="container" style="margin: 10px;">
+<div class="breadcrumb-option set-bg" data-setbg="{% static 'img/notebookmain.jpg' %}">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Car Listing</h2>
+                    <h2>Laptop Listing</h2>
                     <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <span>About</span>
+                        <a href="http://127.0.0.1:8000/"><i class="fa fa-home"></i> Home</a>
+                        <span>{{ tagname }}</span>
                     </div>
                 </div>
             </div>
@@ -265,6 +271,7 @@
     </div>
 </div>
 <!-- Breadcrumb Begin -->
+
 
 <!-- Car Section Begin -->
 <section class="car spad">
@@ -274,18 +281,42 @@
             <div class="col-lg-12">
 
                 {% block list %}
+
                 <!-- 정렬 필터 -->
                 <div class="car__filter__option">
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <h6 style="line-height: 35px; font-size: 20px;"><strong>{{ tagname }}</strong></h6>
                         </div>
+
+                        <input class="js-price_min range__input" type="hidden" name="price_min" id="price_min"
+                            type="number" value="{% if price_min %}{{price_min}}{% else %}{{0}}{% endif %}">
+                        <input class="js-price_max range__input" type="hidden" name="price_max" id="price_max"
+                            type="number" value="{% if price_max %}{{price_max}}{% else %}{{500}}{% endif %}">
+
                         <div class="col-lg-6 col-md-6">
                             <div class="car__filter__option__item car__filter__option__item--right">
                                 <h6>Sort By</h6>
-                                <select>
-                                    <option value="">Price: Highest Fist</option>
-                                    <option value="">Price: Lowest Fist</option>
+                                <select id="sort-select" onchange="location=this.value;">
+                                    {% if 'high' in sort %}
+                                    <option data-display='가격 정렬하기' disabled>가격 정렬하기</option>
+                                    <option class="sort-high_price" value="?{{ get_full_path }}&sort=high_price"
+                                        selected>높은 가격순</option>
+                                    <option class="sort-low_price" value="?{{ get_full_path }}&sort=low_price">낮은 가격순
+                                    </option>
+                                    {% elif 'low' in sort %}
+                                    <option data-display='가격 정렬하기' disabled>가격 정렬하기</option>
+                                    <option class="sort-high_price" value="?{{ get_full_path }}&sort=high_price">높은 가격순
+                                    </option>
+                                    <option class="sort-low_price" value="?{{ get_full_path }}&sort=low_price" selected>
+                                        낮은 가격순</option>
+                                    {% else %}
+                                    <option data-display='가격 정렬하기' selected disabled>가격 정렬하기</option>
+                                    <option class="sort-high_price" value="?{{ get_full_path }}&sort=high_price">높은 가격순
+                                    </option>
+                                    <option class="sort-low_price" value="?{{ get_full_path }}&sort=low_price">낮은 가격순
+                                    </option>
+                                    {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -333,7 +364,7 @@
                                                     href="{% url 'product:detail' product.id %}">상세보기</a></span>
                                             {% if product.price < 1 %} <h6>임시품절</h6>
                                                 {% else %}
-                                                <h6>{{ product.price|intcomma }}<span>원</span></h6>
+                                                <h6>{{ product.price | intcomma }}<span>원</span></h6>
                                                 {% endif %}
                                         </div>
                                     </div>

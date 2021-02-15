@@ -16,17 +16,19 @@ class ProductLV(ListView):
     context_object_name = 'products'  # 컨텍스트 객체 이름 변경 / 디폴트는 object_list
     paginate_by = 9  # 페이지네이션, 페이지 당 문서 건 수
 
-    def get_ordering(self):
+    def get_queryset(self):
+
+        products = Product.objects.all()
+
         sort = self.request.GET.get('sort', '')
         if sort == 'high_price':
-            ordering = self.request.GET.get('ordering', '-price')
+            products = products.order_by('-price')
         elif sort == 'low_price':
-            ordering = self.request.GET.get('ordering', 'price')
-
+            products = products.order_by('price')
         else:
-            ordering = self.request.GET.get('ordering', 'id')
+            products = products.order_by('id')
 
-        return ordering
+        return products
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -84,6 +86,9 @@ class ProductLV(ListView):
         # 노트북 총 몇 건
         number_of_product = Product.objects.all().count()
         context['number_of_product'] = number_of_product
+
+        sort = self.request.GET.get('sort', '')
+        context['sort'] = sort
 
         return context
 
@@ -213,12 +218,13 @@ class SearchLView(ListView):
         number_of_queryset = self.get_queryset().count()
         context['number_of_queryset'] = number_of_queryset
 
-        # int_weight = Product.
-        # context['int_weight'] =
+        sort = self.request.GET.get('sort', '')
+        context['sort'] = sort
 
         return context
 
     def get_queryset(self):
+
         product_list = Product.objects.all()
 
         q = self.request.GET.get('q', '')  # 검색에서 입력한 값이 넘어옴
@@ -304,6 +310,14 @@ class SearchLView(ListView):
             product_list = product_list.filter(
                 Q(price__gte=(int(price_min)*10000)) & Q(price__lte=(int(price_max)*10000)))
 
+        sort = self.request.GET.get('sort', '')
+        if sort == 'high_price':
+            product_list = product_list.order_by('-price')
+        elif sort == 'low_price':
+            product_list = product_list.order_by('price')
+        else:
+            product_list = product_list.order_by('id')
+
         return product_list
 
 
@@ -318,7 +332,17 @@ class TaggedObjectLV(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        return Product.objects.filter(tags__name=self.kwargs.get('tag'))
+        object_list = Product.objects.filter(tags__name=self.kwargs.get('tag'))
+
+        sort = self.request.GET.get('sort', '')
+        if sort == 'high_price':
+            object_list = object_list.order_by('-price')
+        elif sort == 'low_price':
+            object_list = object_list.order_by('price')
+        else:
+            object_list = object_list.order_by('id')
+
+        return object_list
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -329,7 +353,7 @@ class TaggedObjectLV(ListView):
         max_index = len(paginator.page_range)
 
         page = self.request.GET.get('page')
-        current_page = int(page) if page else 1
+        current_page = int(self.request.GET.get('page', 1))
 
         start_index = int((current_page-1) /
                           page_numbers_range) * page_numbers_range
@@ -341,18 +365,9 @@ class TaggedObjectLV(ListView):
         page_range = paginator.page_range[start_index:end_index]
         context['page_range'] = page_range
 
-        # 검색 필터 목록
-        maker_list = Maker_list.objects.all()
-        context['maker_list'] = maker_list
-        context['number_of_maker_list'] = maker_list.count()
-
-        cpu_list = Cpu_list.objects.all()
-        context['cpu_list'] = cpu_list
-        context['number_of_cpu_list'] = cpu_list.count()
-
-        ram_list = Ram_list.objects.all()
-        context['ram_list'] = ram_list
-        context['number_of_ram_list'] = ram_list.count()
+        # 최소 가격 입력한 데이터 값들이 넘어옴(getlist -> 여러개 받을 수 있음)
+        sort = self.request.GET.get('sort', '')
+        context['sort'] = sort
 
         return context
 

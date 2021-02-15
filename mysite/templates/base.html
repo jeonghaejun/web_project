@@ -9,7 +9,7 @@
     <meta name="keywords" content="HVAC, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HVAC | Template</title>
+    <title>HVAC | laptop</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -46,22 +46,48 @@
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__widget">
-            <!-- <a href="#"><i class="fa fa-cart-plus"></i></a> -->
+            <a href="#"><i class="fa fa-cart-plus"></i></a>
             <!-- <a href="#" class="search-switch"><i class="fa fa-search"></i></a> -->
-            <!-- <a href="#" class="primary-btn">Add Car</a> -->
+            {% if user.is_active %}
+            <div class="btn-group">
+                <button type="button" class="btn primary-btn text-white dropdown-toggle" data-toggle="dropdown"><i
+                        class="fa fa-user"></i> {{ user.username }}
+                    <span class="caret"></span></button>
+                <div class="dropdown-menu" style="padding: 0;">
+                    <a class="dropdown-item btn primary-btn text-white" style="background: #db2d2e;"
+                        href="{% url 'logout' %}">로그아웃</a>
+                    <a class="dropdown-item btn primary-btn text-white" style="background: #db2d2e;"
+                        href="{% url 'password_change' %}">비밀번호 변경</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="btn-group">
+                <button type="button" class="btn primary-btn text-white dropdown-toggle" data-toggle="dropdown"><i
+                        class="fa fa-user"></i> 비회원
+                    <span class="caret"></span></button>
+                <div class="dropdown-menu" style="padding: 0;">
+                    <a class="dropdown-item btn primary-btn text-white" style="background: #db2d2e;"
+                        href="{% url 'login' %}">로그인</a>
+                    <a class="dropdown-item btn primary-btn text-white" style="background: #db2d2e;"
+                        href="{% url 'register' %}">회원가입</a>
+                </div>
+            </div>
+            {% endif %}
         </div>
         <div class="offcanvas__logo">
             <a href="{% url 'index' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <ul class="offcanvas__widget__add">
-            <!-- <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li> -->
-            <!-- <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li> -->
+            <li><i class="fa fa-clock-o"></i> Lecture Time: <br>
+                09:00 am to 18:00 pm</li>
+            <br>
+            <li><i class="fa fa-envelope-o"></i> admin@gmail.com</li>
         </ul>
-        <!-- <div class="offcanvas__phone__num"> -->
-        <!-- <i class="fa fa-phone"></i> -->
-        <!-- <span>(+12) 345 678 910</span> -->
-        <!-- </div> -->
+        <div class="offcanvas__phone__num">
+            <i class="fa fa-phone"></i>
+            <span>010-1111-1111</span>
+        </div>
         <div class="offcanvas__social">
             <a href="#"><i class="fa fa-facebook"></i></a>
             <a href="#"><i class="fa fa-twitter"></i></a>
@@ -86,56 +112,49 @@
                         <nav class="header__menu">
                             <ul>
                                 <li><a href="{% url 'index' %}">Home</a></li>
-                                <li><a href="{% url 'product:list' %}">Product</a></li>
-                                <li><a href="{% url 'product:tagged_object_list' '휴대용' %}">휴대용</a></li>
+                                <li><a href="{% url 'product:tagged_object_list' '휴대용' %}">휴대용</a>
                                 <li><a href="{% url 'product:tagged_object_list' '사무인강용' %}">사무용</a></li>
                                 <li><a href="{% url 'product:tagged_object_list' '게임용' %}">게임용</a></li>
-                                <li><a href="{% url 'product:tagged_object_list' '그래픽작업용' %}">그래픽작업용</a></li>
-                                <div class="btn-group">
-                                    <button type="button" class="btn primary-btn text-white"><a
-                                            href="{% url 'cart:cart_detail' %}"><i
-                                                class="fa fa-cart-plus"></i></a></button>
-                                    {% if user.is_active %}
-                                    <div class="btn-group">
-                                        <button type="button" class="btn primary-btn text-white dropdown-toggle"
-                                            data-toggle="dropdown"><i class="fa fa-user"></i> {{ user.username }}
-                                            <span class="caret"></span></button>
-                                        <div class="dropdown-menu" style="padding: 0;">
-                                            <a class="dropdown-item btn primary-btn text-white"
-                                                style="background: #db2d2e;" href="{% url 'logout' %}">Logout</a>
-                                            <a class="dropdown-item btn primary-btn text-white"
-                                                style="background: #db2d2e;" href="{% url 'password_change' %}">Change
-                                                Password</a>
-                                        </div>
-                                    </div>
-                                    {% else %}
-                                    <div class="btn-group">
-                                        <button type="button" class="btn primary-btn text-white dropdown-toggle"
-                                            data-toggle="dropdown"><i class="fa fa-user"></i> Anonymous
-                                            <span class="caret"></span></button>
-                                        <div class="dropdown-menu" style="padding: 0;">
-                                            <a class="dropdown-item btn primary-btn text-white"
-                                                style="background: #db2d2e;" href="{% url 'login' %}">Login</a>
-                                            <a class="dropdown-item btn primary-btn text-white"
-                                                style="background: #db2d2e;" href="{% url 'register' %}">Register</a>
-                                        </div>
-                                    </div>
-                                    {% endif %}
+                                <li><a href="{% url 'product:tagged_object_list' '그래픽작업용' %}">그래픽 작업용</a></li>
                             </ul>
                         </nav>
-                        <!-- <div class="header__nav__widget">
-                            <div class="header__nav__widget__btn">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
+                        <div class="btn-group">
+                            <button type="button" class="btn primary-btn text-white"><a
+                                    href="{% url 'cart:cart_detail' %}"><i class="fa fa-cart-plus"></i></a></button>
+                            <!-- <button type="button" class="btn primary-btn text-white"><a href="#" class="search-switch"><i class="fa fa-search">Search</i></a></button> -->
+                            {% if user.is_active %}
+                            <div class="btn-group">
+                                <button type="button" class="btn primary-btn text-white dropdown-toggle"
+                                    data-toggle="dropdown"><i class="fa fa-user"></i> {{ user.username }}
+                                    <span class="caret"></span></button>
+                                <div class="dropdown-menu" style="padding: 0;">
+                                    <a class="dropdown-item btn primary-btn text-white" style="background: #db2d2e;"
+                                        href="{% url 'logout' %}">로그아웃</a>
+                                    <a class="dropdown-item btn primary-btn text-white" style="background: #db2d2e;"
+                                        href="{% url 'password_change' %}">비밀번호 변경</a>
+                                </div>
                             </div>
-                            <a href="#" class="primary-btn">Add Car</a>
-                        </div> -->
+                            {% else %}
+                            <div class="btn-group">
+                                <button type="button" class="btn primary-btn text-white dropdown-toggle"
+                                    data-toggle="dropdown"><i class="fa fa-user"></i> 비회원
+                                    <span class="caret"></span></button>
+                                <div class="dropdown-menu" style="padding: 0;">
+                                    <a class="dropdown-item btn primary-btn text-white" style="background: #db2d2e;"
+                                        href="{% url 'login' %}">로그인</a>
+                                    <a class="dropdown-item btn primary-btn text-white" style="background: #db2d2e;"
+                                        href="{% url 'register' %}">회원가입</a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="canvas__open">
-                <span class="fa fa-bars"></span>
-            </div>
+        </div>
+
+        <div class="canvas__open">
+            <span class="fa fa-bars"></span>
         </div>
     </header>
     <!-- Header Section End -->
@@ -143,7 +162,7 @@
     {% block content %}{% endblock %}
 
     <!-- Footer Section Begin -->
-    <footer class="footer set-bg" data-setbg="{% static 'img/footer-bg.jpg' %}">
+    <footer class="footer set-bg" data-setbg="{% static 'img/footer-02.jpg' %}">
         <div class="container">
             <div class="footer__contact">
                 <div class="row">
@@ -154,8 +173,8 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="footer__contact__option">
-                            <div class="option__item"><i class="fa fa-phone"></i> (+12) 345 678 910</div>
-                            <div class="option__item email"><i class="fa fa-envelope-o"></i> Colorlib@gmail.com</div>
+                            <div class="option__item"><i class="fa fa-phone"></i> 010-1111-1111</div>
+                            <div class="option__item email"><i class="fa fa-email"></i> admin@gmail.com</div>
                         </div>
                     </div>
                 </div>
@@ -164,10 +183,10 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="#"><img src="{%static 'img/footer-logo.png' %}" alt=""></a>
+                            <!-- <a href="#"><img src="{%static 'img/2.png' %}" alt=""></a> -->
                         </div>
-                        <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or call us
-                            on (+1) 96 123 8888</p>
+                        <p style="color: white;">궁금한 사항이 있으시면 서울 강남구 삼성로 534 SAC아트센터로 방문 <br>혹은 010-1111-1111로 연락주시기
+                            바랍니다.</p>
                         <div class="footer__social">
                             <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
@@ -178,40 +197,43 @@
                 </div>
                 <div class="col-lg-2 offset-lg-1 col-md-3">
                     <div class="footer__widget">
-                        <h5>Infomation</h5>
+                        <h5>Lapopt</h5>
                         <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Purchase</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Payemnt</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Shipping</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Return</a></li>
+                            <li><a href="{% url 'product:tagged_object_list' '휴대용' %}" style="color: white;"><i
+                                        class="fa fa-angle-right" style="color: white;"></i> 휴대용</a></li>
+                            <li><a href="{% url 'product:tagged_object_list' '사무인강용' %}" style="color: white;"><i
+                                        class="fa fa-angle-right" style="color: white;"></i> 사무용</a></li>
+                            <li><a href="{% url 'product:tagged_object_list' '게임용' %}" style="color: white;"><i
+                                        class="fa fa-angle-right" style="color: white;"></i> 게임용</a></li>
+                            <li><a href="{% url 'product:tagged_object_list' '그래픽작업용' %}" style="color: white;"><i
+                                        class="fa fa-angle-right" style="color: white;"></i> 작업용</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-lg-2">
+                    <div class="footer__brand">
+                        <h5>Top Brand</h5>
+                        <ul>
+                            <li><a href="http://127.0.0.1:8000/product/search/?csrfmiddlewaretoken=QAzsTmF1398sqZdKFeBn77Ge8xjBC6M2BPBW3CdNvtpa0zymGz8eRFxJ4IW5Qwtx&f_maker=LG%EC%A0%84%EC%9E%90&price_min=0&price_max=500"
+                                    style="color: white;"><i class="fa fa-angle-right"></i> LG</a></li>
+                            <li><a href="http://127.0.0.1:8000/product/search/?csrfmiddlewaretoken=6lN74yw96jNArOm0k6FMstV7nbl6xfFnRAPBeO4VyD4i1oHClrcDc1MCjmYALFmS&f_maker=%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90&price_min=0&price_max=500"
+                                    style="color: white;"><i class="fa fa-angle-right"></i> Samsung</a></li>
+                            <li><a href="http://127.0.0.1:8000/product/search/?csrfmiddlewaretoken=R0lxvavYoAwbonWwdlrxn1JRoqwvL5HECfn1Fq3KQUNTYXh8eGYo7zAmkB9ZZvo9&f_maker=APPLE&price_min=0&price_max=500"
+                                    style="color: white;"><i class="fa fa-angle-right"></i> APPLE</a></li>
+                            <li><a href="http://127.0.0.1:8000/product/search/?csrfmiddlewaretoken=DQROsnhxHc9o5ONBIL8gOGe5ZcIbvy8Ho5TiCDPj9wq6Fo8dJ6F7ye5AVnlFJYPc&f_maker=ASUS&price_min=0&price_max=500"
+                                    style="color: white;"><i class="fa fa-angle-right"></i> ASUS</a></li>
+                            <li><a href="http://127.0.0.1:8000/product/search/?csrfmiddlewaretoken=NakgMAsZIoHtHoDFZQ5BOSpwKWbYLYRrypmKWQ0LaIYbhYYh0bCsyqg1G7OsZoyW&f_maker=MSI&price_min=0&price_max=500"
+                                    style="color: white;"><i class="fa fa-angle-right"></i> MSI</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3">
                     <div class="footer__widget">
-                        <h5>Infomation</h5>
+                        <h5>User</h5>
                         <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Hatchback</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Sedan</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> SUV</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Crossover</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer__brand">
-                        <h5>Top Brand</h5>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Abarth</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Acura</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Alfa Romeo</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Audi</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> BMW</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Chevrolet</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Ferrari</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Honda</a></li>
+                            <li><a href="http://127.0.0.1:8000/cart/" style="color: white;"><i
+                                        class="fa fa-angle-right"></i> Cart</a></li>
+
                         </ul>
                     </div>
                 </div>
@@ -219,9 +241,9 @@
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             <div class="footer__copyright__text">
                 <p>Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is
-                    made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                        target="_blank">Colorlib</a>
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | Team no.2 by <i
+                        class="fa fa-heart" aria-hidden="true"></i> <a href="https://www.multicampus.com/main"
+                        target="_blank">multicampus</a>
                 </p>
             </div>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->

@@ -3,26 +3,44 @@
 {% block title %}register_done.html{% endblock %}
 
 {% block content %}
+
 <head>
     <style>
-    h3 {text-align: center;}
-    h2 {text-align: center;}
-    h1 {text-align: center;}
-    p {text-align: center;}
-    div {text-align: center;}
-    form {text-align: center;}
+        h3 {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        div {
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+        }
     </style>
-    </head>
+</head>
 <!-- Breadcrumb End -->
-<div class="breadcrumb-option set-bg" data-setbg="{% static 'img/breadcrumb-bg.jpg' %}">
+<div class="breadcrumb-option set-bg" data-setbg="{% static 'img/notebookmain.jpg' %}">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Car Listing</h2>
+                    <h2>Laptop Listing</h2>
                     <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <span>About</span>
+                        <a href="http://127.0.0.1:8000/"><i class="fa fa-home"></i> Home</a>
+                        <span>회원가입 완료</span>
                     </div>
                 </div>
             </div>
@@ -31,10 +49,12 @@
 </div>
 <!-- Breadcrumb Begin -->
 
-		<!-- register_done Section Begin -->
-    <h2>Registration Completed Successfully</h2>
-    <br>
-    <p>Thank you for registering.</p>
-    <p class="font-italic"><a href="{% url 'login' %}"><h3>Log in</h3></a> </p>
- {% endblock %}
-    <!-- register_done Section End -->
+<!-- register_done Section Begin -->
+<h2>Registration Completed Successfully</h2>
+<br>
+<p>Thank you for registering.</p>
+<p class="font-italic"><a href="{% url 'login' %}">
+        <h3>Log in</h3>
+    </a> </p>
+{% endblock %}
+<!-- register_done Section End -->

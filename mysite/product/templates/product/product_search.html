@@ -1,6 +1,6 @@
 {% extends "product/product.html" %}
-{% load humanize %}
 {% load static %}
+{% load humanize %}
 
 {% block list %}
 <div class="car__filter__option">
@@ -11,10 +11,22 @@
         <div class="col-lg-6 col-md-6">
             <div class="car__filter__option__item car__filter__option__item--right">
                 <h6>Sort By</h6>
-                <select>
-                    <option value="">Price: Highest Fist</option>
-                    <option value="">Price: Lowest Fist</option>
+                <select id="sort-select" onchange="location=this.value;">
+                    {% if 'high' in sort %}
+                        <option data-display='가격 정렬하기' disabled>가격 정렬하기</option>
+                        <option class="sort-high_price" value="?{{ get_full_path }}&sort=high_price" selected>높은 가격순</option>
+                        <option class="sort-low_price" value="?{{ get_full_path }}&sort=low_price">낮은 가격순</option>
+                    {% elif 'low' in sort %}
+                        <option data-display='가격 정렬하기' disabled>가격 정렬하기</option>
+                        <option class="sort-high_price" value="?{{ get_full_path }}&sort=high_price">높은 가격순</option>
+                        <option class="sort-low_price" value="?{{ get_full_path }}&sort=low_price" selected>낮은 가격순</option>
+                    {% else %}
+                        <option data-display='가격 정렬하기' selected disabled>가격 정렬하기</option>
+                        <option class="sort-high_price" value="?{{ get_full_path }}&sort=high_price">높은 가격순</option>
+                        <option class="sort-low_price" value="?{{ get_full_path }}&sort=low_price">낮은 가격순</option>
+                    {% endif %}
                 </select>
+
             </div>
         </div>
     </div>
@@ -23,55 +35,55 @@
 <!-- 검색된 노트북 리스트 -->
 <div class="row">
     {% if not product_list %}
-    <b><i>해당 상품이 존재하지 않습니다.</i></b>
+        <b><i>해당 상품이 존재하지 않습니다.</i></b>
     {% else %}
-    {% for product in product_list %}
-    <div class="col-lg-12 col-md-12">
-        <div class="car__item" style="height: max-content;">
-            <!-- <div class="car__item__pic__slider owl-carousel"> -->
-            <!-- <img src="{{ product.imageURL }}" alt=""> -->
-            <!-- <img src="{{ product.imageURL }}" alt="">
+        {% for product in product_list %}
+        <div class="col-lg-12 col-md-12">
+            <div class="car__item" style="height: max-content;">
+                <!-- <div class="car__item__pic__slider owl-carousel"> -->
+                    <!-- <img src="{{ product.imageURL }}" alt=""> -->
+                    <!-- <img src="{{ product.imageURL }}" alt="">
                     <img src="{{ product.imageURL }}" alt="">
                     <img src="{{ product.imageURL }}" alt=""> -->
-            <!-- </div> -->
-            <div class="car__item__text">
+                <!-- </div> -->
+                <div class="car__item__text">
 
-                <div class="row" style="margin-left: 0px;">
-                    <div class="col-3">
-                        <img src="{{ product.imageURL }}" alt=""
-                            style="border-right: 1px solid #ebebeb; border-radius: 2px 2px 0 0; padding-left: 15px; padding-right: 15px;">
-                    </div>
-                    <div class="col-9" style="padding-left: 0px;">
-                        <div class="car__item__text__inner">
-                            <div class="label-date">{{ product.maker }}</div>
-                            <h5>{{ product.name }}</h5>
-                            <ul>
-                                <li style="font-size: 12px;"><span>{{ product.cpu }}</span></li>
-                                <li style="font-size: 12px;">{{ product.ram }} GB</li>
-                                <li style="font-size: 12px;"><span>{{ product.gpu }}</span></li>
-                                <li style="font-size: 12px;">{{ product.volume }}</li>
-                            </ul>
-                            <ul>
-                                <li style="font-size: 12px;"><span>{{ product.sw_os }}</span></li>
-                                <li style="font-size: 12px;">{{ product.display }}인치</li>
-                                <li style="font-size: 12px;"><span>{{ product.weight }}kg</span></li>
-                                <li style="font-size: 12px;">배터리 {{ product.battery }}Wh</li>
-                            </ul>
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="col-3">
+                            <img src="{{ product.imageURL }}" alt="" style="border-right: 1px solid #ebebeb; border-radius: 2px 2px 0 0; padding-left: 15px; padding-right: 15px;">
                         </div>
-                        <div class="car__item__price">
-                            <span class="car-option" style="border-right: 1px solid #ebebeb;"><a
-                                    href="{% url 'product:detail' product.id %}">상세보기</a></span>
-                            {% if product.price < 1 %} <h6>임시품절</h6>
+                        <div class="col-9" style="padding-left: 0px;">
+                            <div class="car__item__text__inner">
+                                <div class="label-date">{{ product.maker }}</div>
+                                <h5>{{ product.name }}</h5>
+                                <ul>
+                                    <li style="font-size: 12px;"><span>{{ product.cpu }}</span></li>
+                                    <li style="font-size: 12px;">{{ product.ram }} GB</li>
+                                    <li style="font-size: 12px;"><span>{{ product.gpu }}</span></li>
+                                    <li style="font-size: 12px;">{{ product.volume }}</li>
+                                </ul>
+                                <ul>
+                                    <li style="font-size: 12px;"><span>{{ product.sw_os }}</span></li>
+                                    <li style="font-size: 12px;">{{ product.display }}인치</li>
+                                    <li style="font-size: 12px;"><span>{{ product.weight }}kg</span></li>
+                                    <li style="font-size: 12px;">배터리 {{ product.battery }}Wh</li>
+                                </ul>
+                            </div>
+                            <div class="car__item__price">
+                                <span class="car-option" style="border-right: 1px solid #ebebeb;"><a
+                                        href="{% url 'product:detail' product.id %}">상세보기</a></span>
+                                {% if product.price < 1 %}
+                                    <h6>임시품절</h6>
                                 {% else %}
-                                <h6>{{ product.price|intcomma }}<span>원</span></h6>
+                                    <h6>{{ product.price | intcomma }}<span>원</span></h6>
                                 {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
     {% endif %}
 </div>
 
