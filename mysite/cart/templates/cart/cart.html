@@ -76,8 +76,8 @@
                                     <li style="font-size: 20px;"><span>상품 번호: {{ cart_item.product.id }}</span></li>
                                     <li style="font-size: 20px;">개당 가격 : {{ cart_item.product.price | intcomma }} 원</li>
                                     <li style="font-size: 20px;"><span>주문량 : {{ cart_item.quantity }} 개</span></li>
-                                    <li style="font-size: 20px; color: #4971FF;">총 가격 : {{ cart_item.sub_total |
-                                        intcomma }}원</li>
+                                    <li style="font-size: 20px; color: #4971FF;">총 가격 :
+                                        {{cart_item.sub_total|intcomma}}원</li>
                                 </ul>
                             </div>
                             <div class="car__item__price" style="text-align: left; padding-left: 20px;">

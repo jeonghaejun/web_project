@@ -47,23 +47,29 @@
 </div>
 <!-- Breadcrumb Begin -->
 
+<!-- Register Begin -->
 <section class="contact spad">
-    <div class="container" style="max-width: 1170px;">
+    <div class="container " style="max-width: 1170px;">
+        <div class="jumbotron">
         <div class="row">
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-8 col-md-8 text-center">
                 <div class="contact__text">
                     <div class="section-title">
-                        <h2>New User Registration</h2>
-                        <p>Please enter your username and password twice.</p>
+                        <h3>다음 사항을 기입해주세요.</h3><br>
+                        <br>
+                        <p><h5>아이디와 비밀번호는 필수사항입니다.</h5></p>
                     </div>
+                    <br>
                     {% if form.errors %}
                     <div class="alert alert-danger" style="background-color: white; border-color: white">
                         <div class="font-weight-bold" style="color: red;">
-                            Wrong! Please correct the error(s) below.
+                            비밀번호가 일치하지 않거나 이미 존재하는 아이디입니다.
+                            <br>
+                            다시 입력해주세요.
                         </div>
                     </div>
                     <ul>
-                        <li>{{ form.errors }}</li>
+                        <!-- <li>{{ form.errors }}</li> -->
                     </ul>
                     {% endif %}
                     <!-- <ul>
@@ -73,7 +79,7 @@
                     </ul> -->
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-7 col-md-7">
                 <div class="contact__form">
                     <form action="." method="POST">{% csrf_token %}
                         <!-- <div class="row">
@@ -87,36 +93,53 @@
                         <div class="form-group row">
                             <!-- {{ form.username| add_label_class:"col-form-label font-weight-bold" }} -->
                             <div class="col-4">
-                                <h6 style="line-height: 50px; font-size: 18px;">이름</h6>
+                                <h6 style="line-height: 50px; font-size: 18px;">아이디<strong style="color: red;">(필수)</strong></h6>
                             </div>
                             <div class="col-8">
                                 {{ form.username| add_class:"form-control"|attr:"autofocus" }}
                             </div>
+                            
+                        </div>
+
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <h6 style="line-height: 50px; font-size: 18px;">비밀번호<strong style="color: red;">(필수)</strong></h6>
+                            </div>
+                            <div class="col-8">
+                                {{ form.password1| add_class:"form-control"}}
+                            </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-4">
-                                <h6 style="line-height: 50px; font-size: 18px;">비밀번호</h6>
+                                <h6 style="line-height: 50px; font-size: 18px;">비밀번호 확인<strong style="color: red;">(필수)</strong></h6>
                             </div>
                             <div class="col-8">
-                                <!-- {{ form.password1| add_label_class:"col-form-label font-weight-bold" }} -->
-                                {{ form.password1| add_class:"form-control" }}
+                            <!-- {{ form.password2| add_label_class:"col-form-label font-weight-bold" }} -->
+                                {{ form.password2| add_class:"form-control"}}
                             </div>
                         </div>
-
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <div class="col-4">
-                                <h6 style="line-height: 50px; font-size: 18px;">비밀번호 확인</h6>
+                                <h6 style="line-height: 50px; font-size: 18px;">비밀번호 확인<strong style="color: red;">(필수)</strong></h6>
                             </div>
                             <div class="col-8">
-                                <!-- {{ form.password2| add_label_class:"col-form-label font-weight-bold" }} -->
-                                {{ form.password2| add_class:"form-control" }}
+                                <input type="text" class="form-control-plaintext" placeholder="영문, 특수문자, 숫자 포함 최소 8자 이상" id="pwd">
+                            </div>
+                        </div> -->
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <h6 style="line-height: 50px; font-size: 18px;">주소</h6>
+                            </div>
+                            <div class="col-8">
+                            <!-- {{ form.password2| add_label_class:"col-form-label font-weight-bold" }} -->
+                                {{ form.email| add_class:"form-control"}}
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" value="Register" class="site-btn"
-                                style="float: right;">Resister</button>
+                            <button type="submit" value="Register" class="site-btn" style="float: right;">가입 완료</button>
                         </div>
 
                         <!-- <input type="text" placeholder="Subject">
@@ -124,13 +147,18 @@
                         <input type="text" placeholder="Subject"> -->
                         <!-- <textarea placeholder="Your Question"></textarea> -->
                         <!-- <button type="submit" class="site-btn">Submit Now</button> -->
+
+                       <ul> <div class="container signin">
+                            <p>이미 회원이라면 로그인 해주세요.<br><a href="{% url 'login' %}">로그인</a></p>
+                          </div>
+                        </ul>
                     </form>
                 </div>
+            </div>
             </div>
         </div>
     </div>
 </section>
-
 <!-- register Section Begin -->
 <!-- <section>
     <h3>New User Registration</h3>
